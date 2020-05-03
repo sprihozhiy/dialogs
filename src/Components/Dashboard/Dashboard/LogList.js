@@ -16,6 +16,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 import Typography from "@material-ui/core/Typography";
 
+import "./Dashboard.css";
+
 class LogList extends Component {
   constructor(props) {
     super(props);
@@ -82,7 +84,9 @@ class LogList extends Component {
       <Grid container spacing={3}>
         {/* Recent Logs */}
         <Grid item xs={12} md={8} lg={9}>
-          <h3>Recent Logs</h3>
+          <Typography variant="h6" className="DashboardTitles">
+            Recent Logs
+          </Typography>
           <TableContainer component={Paper}>
             <Table size="small" aria-label="a dense table">
               <TableHead>
@@ -123,7 +127,9 @@ class LogList extends Component {
         </Grid>
         {/* Add Log */}
         <Grid item xs={12} md={4} lg={3}>
-          <h3>Add Log</h3>
+          <Typography variant="h6" className="DashboardTitles">
+            Add Log
+          </Typography>
           <NewLogForm createLog={this.create} />
         </Grid>
       </Grid>

@@ -15,6 +15,8 @@ import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 
 import LogList from "./LogList";
+import Average from "./Average";
+import Chart from "./Chart";
 
 function Copyright() {
   return (
@@ -45,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     // overflow: "auto",
   },
   container: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(2),
@@ -55,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   fixedHeight: {
-    height: 200,
+    height: 250,
   },
 }));
 
@@ -87,11 +89,15 @@ export default function ButtonAppBar() {
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>Chart</Paper>
+              <Paper className={fixedHeightPaper}>
+                <Chart />
+              </Paper>
             </Grid>
             {/* Average Data */}
             <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>Average Data</Paper>
+              <Paper className={fixedHeightPaper}>
+                <Average />
+              </Paper>
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <Paper className="fixedHeightPaper">

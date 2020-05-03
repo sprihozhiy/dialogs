@@ -13,6 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import "./NewLogForm.css";
 
 class NewLogForm extends Component {
   constructor(props) {
@@ -55,11 +56,11 @@ class NewLogForm extends Component {
           justify="space-around"
           alignItems="center"
         >
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} className="NewLogForm">
             <Grid item>
               <InputLabel htmlFor="logDateTime">Date & Time</InputLabel>
               <TextField
-                type="time"
+                type="datetime-local"
                 id="logDateTime"
                 name="logDateTime"
                 value={this.state.logDateTime}
@@ -95,7 +96,7 @@ class NewLogForm extends Component {
             </Grid>
             <Grid item>
               <TextField
-                type="text"
+                type="number"
                 placeholder="Glucose Consumption"
                 id="logConsumption"
                 name="logConsumption"
@@ -105,7 +106,7 @@ class NewLogForm extends Component {
             </Grid>
             <Grid item>
               <TextField
-                type="text"
+                type="number"
                 placeholder="Blood Glucose"
                 id="logBG"
                 name="logBG"
