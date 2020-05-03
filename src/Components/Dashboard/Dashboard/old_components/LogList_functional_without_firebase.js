@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../../../firebase.js";
+import React, { useState } from "react";
 // import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 import Log from "./Log";
@@ -18,59 +17,37 @@ import "./Dashboard.css";
 
 function LogList(props) {
   const [logs, setLogs] = useState([]);
-
-  useEffect(() => {
-    const logsRef = firebase.database().ref("logs");
-    logsRef.on("value", (snapshot) => {
-      let logsObj = snapshot.val();
-      let newState = [];
-      for (let logItem in logsObj) {
-        newState.push({
-          id: logItem,
-          logDateTime: logsObj[logItem].logDateTime,
-          logMeals: logsObj[logItem].logMeals,
-          logConsumption: logsObj[logItem].logConsumption,
-          logBG: logsObj[logItem].logBG,
-          logInsulin: logsObj[logItem].logInsulin,
-        });
-      }
-      setLogs(newState);
-    });
-  }, []);
   //function for creating a new log
   const create = (newLog) => {
     //adding new item to an excisting array using ...operator
     setLogs([newLog, ...logs]);
   };
   const remove = (id) => {
-    const logRef = firebase.database().ref(`/logs/${id}`);
-    console.log(logRef);
-    logRef.remove();
-    setLogs(logs.filter((l) => l.id !== id));
+    setLogs(logs.filter((t) => t.id !== id));
   };
-  // const update = (
-  //   id,
-  //   updatedLogDateTime,
-  //   updatedLogMeals,
-  //   updatedLogConsumption,
-  //   updatedLogBG,
-  //   updatedLogInsulin
-  // ) => {
-  //   const updatedLogs = logs.map((log) => {
-  //     if (log.id === id) {
-  //       return {
-  //         ...log,
-  //         logDateTime: updatedLogDateTime,
-  //         logMeals: updatedLogMeals,
-  //         logConsumption: updatedLogConsumption,
-  //         logBG: updatedLogBG,
-  //         logInsulin: updatedLogInsulin,
-  //       };
-  //     }
-  //     return log;
-  //   });
-  //   setLogs(updatedLogs);
-  // };
+  const update = (
+    id,
+    updatedLogDateTime,
+    updatedLogMeals,
+    updatedLogConsumption,
+    updatedLogBG,
+    updatedLogInsulin
+  ) => {
+    const updatedLogs = logs.map((log) => {
+      if (log.id === id) {
+        return {
+          ...log,
+          logDateTime: updatedLogDateTime,
+          logMeals: updatedLogMeals,
+          logConsumption: updatedLogConsumption,
+          logBG: updatedLogBG,
+          logInsulin: updatedLogInsulin,
+        };
+      }
+      return log;
+    });
+    setLogs(updatedLogs);
+  };
 
   const allLogs = logs.map((log) => {
     return (
@@ -83,7 +60,7 @@ function LogList(props) {
         logBG={log.logBG}
         logInsulin={log.logInsulin}
         removeLog={remove}
-        // updateLog={update}
+        updateLog={update}
       />
     );
   });

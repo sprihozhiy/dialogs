@@ -9,6 +9,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 
+// import DateFnsUtils from "@date-io/date-fns"; // choose your lib
+// import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+
 import MenuItem from "@material-ui/core/MenuItem";
 
 import FormControl from "@material-ui/core/FormControl";
@@ -47,10 +50,11 @@ function NewLogForm(props) {
       logConsumption: logConsumption,
       logBG: logBG,
       logInsulin: logInsulin,
+      //change code below for id
       id: uuid(),
     };
     logsRef.push(log);
-    //passing function using props from TodoList component with adding id to key
+    //passing function using props from LogList component with adding id to key
     props.createLog({
       logDateTime,
       logMeals,
@@ -92,6 +96,15 @@ function NewLogForm(props) {
                 step: 300, // 5 min
               }}
             />
+            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DateTimePicker
+                id="logDateTime"
+                name="logDateTime"
+                value={logDateTime}
+                onChange={handleDateTimeChange}
+                showTodayButton
+              />
+            </MuiPickersUtilsProvider> */}
           </Grid>
           <Grid item>
             <FormControl variant="outlined">

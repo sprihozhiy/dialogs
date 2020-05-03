@@ -22,7 +22,7 @@ function Log(props) {
   };
   const handleUpdate = (e) => {
     e.preventDefault();
-    //take new logData data and pass up to parent
+    //take new log data and pass up to parent
     props.updateLog(
       props.id,
       logDateTime,
@@ -36,12 +36,6 @@ function Log(props) {
   const toggleForm = () => {
     setIsEditing(!isEditing);
   };
-  //  const handleChange = (e) => {
-  //     this.setState({
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   }
-
   const handleDateTimeChange = (e) => {
     setLogDateTime(e.target.value);
   };
@@ -71,7 +65,6 @@ function Log(props) {
               onChange={handleDateTimeChange}
               color="secondary"
             />
-
             <TextField
               type="text"
               value={logMeals}
