@@ -48,29 +48,31 @@ function LogList(props) {
     logRef.remove();
     setLogs(logs.filter((l) => l.id !== id));
   };
-  // const update = (
-  //   id,
-  //   updatedLogDateTime,
-  //   updatedLogMeals,
-  //   updatedLogConsumption,
-  //   updatedLogBG,
-  //   updatedLogInsulin
-  // ) => {
-  //   const updatedLogs = logs.map((log) => {
-  //     if (log.id === id) {
-  //       return {
-  //         ...log,
-  //         logDateTime: updatedLogDateTime,
-  //         logMeals: updatedLogMeals,
-  //         logConsumption: updatedLogConsumption,
-  //         logBG: updatedLogBG,
-  //         logInsulin: updatedLogInsulin,
-  //       };
-  //     }
-  //     return log;
-  //   });
-  //   setLogs(updatedLogs);
-  // };
+
+  //Updating only on frontend, not updating data in database
+  const update = (
+    id,
+    updatedLogDateTime,
+    updatedLogMeals,
+    updatedLogConsumption,
+    updatedLogBG,
+    updatedLogInsulin
+  ) => {
+    const updatedLogs = logs.map((log) => {
+      if (log.id === id) {
+        return {
+          ...log,
+          logDateTime: updatedLogDateTime,
+          logMeals: updatedLogMeals,
+          logConsumption: updatedLogConsumption,
+          logBG: updatedLogBG,
+          logInsulin: updatedLogInsulin,
+        };
+      }
+      return log;
+    });
+    setLogs(updatedLogs);
+  };
 
   const allLogs = logs.map((log) => {
     return (
@@ -83,7 +85,7 @@ function LogList(props) {
         logBG={log.logBG}
         logInsulin={log.logInsulin}
         removeLog={remove}
-        // updateLog={update}
+        updateLog={update}
       />
     );
   });

@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { withRouter } from "react-router";
+import firebase from "../../firebase";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -46,8 +49,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+function SignUp({ history }) {
   const classes = useStyles();
+  const handleSignUp = useCallback(
+    async (event) => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await firebase
+          .auth()
+          .createUserWithEmailAndPassword(email.value, password.value);
+        history.push("/dashboard");
+      } catch (error) {
+        //Should to change this with modal window
+        alert(error);
+      }
+    },
+    [history]
+  );
 
   return (
     <Container component="main" maxWidth="xs">
@@ -62,7 +81,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSignUp}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -141,3 +160,5 @@ export default function SignUp() {
     </Container>
   );
 }
+
+export default withRouter(SignUp);

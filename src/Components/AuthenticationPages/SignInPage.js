@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
+import { withRouter, Redirect } from "react-router";
+import firebase from "../../firebase";
+import { AuthContext } from "../../Auth";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -60,8 +63,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+function SignInSide({ history }) {
   const classes = useStyles();
+  const handleLogin = useCallback(
+    async (event) => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await firebase
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push("/");
+      } catch (error) {
+        //Should to change this with modal window
+        alert(error);
+      }
+    },
+    [history]
+  );
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -78,7 +103,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -135,3 +160,5 @@ export default function SignInSide() {
     </Grid>
   );
 }
+
+export default withRouter(SignInSide);
