@@ -21,6 +21,7 @@ function LogList(props) {
 
   useEffect(() => {
     const logsRef = firebase.database().ref("logs");
+    console.log(logsRef);
     logsRef.on("value", (snapshot) => {
       let logsObj = snapshot.val();
       let newState = [];
